@@ -25,6 +25,16 @@ Timer      ------------> PB2
 
 #define KEY3_IRQHandler            EXTI0_IRQHandler
 
+#define KEY4_INT_GPIO_PORT         GPIOA
+#define KEY4_INT_GPIO_CLK          (RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO)
+#define KEY4_INT_GPIO_PIN          GPIO_Pin_1
+#define KEY4_INT_EXTI_PORTSOURCE   GPIO_PortSourceGPIOA
+#define KEY4_INT_EXTI_PINSOURCE    GPIO_PinSource1
+#define KEY4_INT_EXTI_LINE         EXTI_Line1
+#define KEY4_INT_EXTI_IRQ          EXTI1_IRQn
+
+#define KEY4_IRQHandler            EXTI1_IRQHandler
+
 #define KEY0_INT_GPIO_PORT         GPIOA
 #define KEY0_INT_GPIO_CLK          (RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO)
 #define KEY0_INT_GPIO_PIN          GPIO_Pin_3

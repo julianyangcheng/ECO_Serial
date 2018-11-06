@@ -146,12 +146,12 @@ void control(uint16_t Loc_Remo_Flag)
 		
 		if((Loc_Run_Status&(0x01<<0))==RESET)
 		{
-			GPIO_ResetBits(GPIOC, GPIO_Pin_0);
+			GPIO_ResetBits(GPIOC, GPIO_Pin_3);
 			//run_status_led_OFF;
 		}
 		else
 		{
-			GPIO_SetBits(GPIOC, GPIO_Pin_0);
+			GPIO_SetBits(GPIOC, GPIO_Pin_3);
 			//run_status_led_ON;
 		}
 		if(Loc_Run_Status&(0x01<<1))
@@ -186,12 +186,12 @@ void control(uint16_t Loc_Remo_Flag)
 		
 		if(Remo_Run_Status&(0x01<<0))
 		{
-			GPIO_SetBits(GPIOC, GPIO_Pin_0);
+			GPIO_SetBits(GPIOC, GPIO_Pin_3);
 			//run_status_led_ON;
 		}
 		else
 		{
-			GPIO_ResetBits(GPIOC, GPIO_Pin_0);
+			GPIO_ResetBits(GPIOC, GPIO_Pin_3);
 			//run_status_led_OFF;
 		}
 		if(Remo_Run_Status&(0x01<<1))

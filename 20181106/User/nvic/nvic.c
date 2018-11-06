@@ -28,7 +28,12 @@ Timer      ------------> PB2  ------>KEY2
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
-  
+ 
+  NVIC_InitStructure.NVIC_IRQChannel = KEY4_INT_EXTI_IRQ;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
 
   NVIC_InitStructure.NVIC_IRQChannel = KEY0_INT_EXTI_IRQ;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
@@ -78,6 +83,25 @@ void EXTI_Key_Config(void)
   /* 使能中断 */	
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
+/*--------------------------KEY4配置-----------------------------*/
+	/* 选择按键用到的GPIO */	
+  GPIO_InitStructure.GPIO_Pin = KEY4_INT_GPIO_PIN;
+  /* 配置为浮空输入 */	
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(KEY4_INT_GPIO_PORT, &GPIO_InitStructure);
+
+	/* 选择EXTI的信号源 */
+  GPIO_EXTILineConfig(KEY4_INT_EXTI_PORTSOURCE, KEY4_INT_EXTI_PINSOURCE); 
+  EXTI_InitStructure.EXTI_Line = KEY4_INT_EXTI_LINE;
+	
+	/* EXTI为中断模式 */
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	/* 上升沿中断 */
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+  /* 使能中断 */	
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+	
 	
 /*--------------------------KEY0配置-----------------------------*/
 	/* 选择按键用到的GPIO */	
