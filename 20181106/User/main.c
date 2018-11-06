@@ -52,8 +52,7 @@ USHORT Alarm  = 0x0000;
 
 uint8_t Test = 0;
 uint8_t TestRun = 0 ;
-int main(void)
-{
+int main(void){
 	RCC_Configuration();	//系统时钟初始化
 	status_led_gpio_config();
 	EXTI_Key_Config();

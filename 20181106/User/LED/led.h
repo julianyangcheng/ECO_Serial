@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 
 #define run_status_led_gpio_port GPIOC
-#define run_status_led_gpio_pin GPIO_Pin_0
+#define run_status_led_gpio_pin GPIO_Pin_3
 #define run_status_led_gpio_mode GPIO_Mode_Out_PP
 
 #define mode_status_led_gpio_port GPIOC

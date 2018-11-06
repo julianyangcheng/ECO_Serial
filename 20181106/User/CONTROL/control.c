@@ -138,7 +138,8 @@ void control(uint16_t Loc_Remo_Flag)
 	{
 		/*------------启动GPIO 外部中断-------------------*/
 		EXTI->IMR |= EXTI_Line3; 
-		EXTI->IMR |= EXTI_Line4; 
+		EXTI->IMR |= EXTI_Line0; 
+		EXTI->IMR |= EXTI_Line2; 
 		/*-------------使能ADC转换------------------------*/
 		ADC1->CR2 |= (0x01<<0);
 		ADC_Value_Converter();
@@ -174,7 +175,8 @@ void control(uint16_t Loc_Remo_Flag)
 	{
 		/*关闭GPIO中断*/
 		EXTI->IMR &= ~(EXTI_Line3); 
-		EXTI->IMR &= ~(EXTI_Line4);  
+		EXTI->IMR &= ~(EXTI_Line0);  
+		EXTI->IMR &= ~(EXTI_Line2);  
 		/*关闭ADC采样*/
 		//ADC1->CR2 ^= (0x01<<0);
 		

@@ -166,46 +166,65 @@ void SysTick_Handler(void)
 uint16_t  timer = 0;
 uint16_t  Tim = 0;
 uint16_t Tim1=0;
+/*启动停止中断PA0--->KEY3*/
+void KEY3_IRQHandler(void)
+{
+  //确保是否产生了EXTI Line中断
+	if(EXTI_GetITStatus(KEY3_INT_EXTI_LINE) != RESET) 
+	{
+    if(GPIO_ReadInputDataBit(KEY3_INT_GPIO_PORT,KEY3_INT_EXTI_LINE)==SET)
+		{
+			Loc_Run_Status &= ~Bit_run_stop;
+		}
+		else
+		{
+			Loc_Run_Status |= Bit_run_stop;
+		}
+				/*复位DA输出*/
+		DAC_SetDualChannelData(DAC_DATA_ALIGN, 0, 0);
+	} 
+	else
+	{
+	}
+	EXTI_ClearITPendingBit(KEY3_INT_EXTI_LINE); 
+}
+/*CC/CV中断PA3--->KEY0*/
+//void KEY0_IRQHandler(void)
+//{
+//  //确保是否产生了PC13中断
+//	if(EXTI_GetITStatus(KEY0_INT_EXTI_LINE) != RESET) 
+//	
+//		{
+//		if(GPIO_ReadInputDataBit(KEY0_INT_GPIO_PORT,KEY0_INT_EXTI_LINE)==SET)
+//		{
+//			Loc_Run_Status &= ~Bit_run_stop;
+//		}	
+//		/*如果是低电平，开始运行，Loc_Run_Status最低为置位*/
+//		else
+//		{
+//			
+//			Loc_Run_Status |= Bit_run_stop;			
+//		}
+//		}
+//		else
+//		{
+//		}
+//		/*复位DA输出*/
+//		DAC_SetDualChannelData(DAC_DATA_ALIGN, 0, 0);
+//	/*清除中断标志，重新等待中断*/
+//		EXTI_ClearITPendingBit(KEY0_INT_EXTI_LINE);     
+//	  
+//}
+//
+
 void KEY0_IRQHandler(void)
 {
-  //确保是否产生了PC13中断
-	if(EXTI_GetITStatus(KEY0_INT_EXTI_LINE) != RESET) 
-	
-		{
-
-		/*读PC13, 判断高低电平*/
-		/*如果是高电平，停止运行，Loc_Run_Status最低位复位*/
-		if(GPIO_ReadInputDataBit(KEY0_INT_GPIO_PORT,KEY0_INT_EXTI_LINE)==SET)
-		{
-			
-			
-			Loc_Run_Status &= ~Bit_run_stop;
-		}	
-				/*如果是低电平，开始运行，Loc_Run_Status最低为置位*/
-		else
-		{
-			
-			Loc_Run_Status |= Bit_run_stop;			
-		}
-		}
-		else
-		{
-		}
-		/*复位DA输出*/
-		DAC_SetDualChannelData(DAC_DATA_ALIGN, 0, 0);
-	/*清除中断标志，重新等待中断*/
-		EXTI_ClearITPendingBit(KEY0_INT_EXTI_LINE);     
-	  
-}
-
-void KEY1_IRQHandler(void)
-{
   //确保是否产生了PC1中断
-	if(EXTI_GetITStatus(KEY1_INT_EXTI_LINE) != RESET) 
+	if(EXTI_GetITStatus(KEY0_INT_EXTI_LINE) != RESET) 
 	{
 		/*读PC1,判断高低电平*/
 		/*如果是高电平，运行在CC模式，Loc_Run_Status最第二位置位*/
-		if(GPIO_ReadInputDataBit(KEY1_INT_GPIO_PORT,KEY1_INT_GPIO_PIN)==SET)
+		if(GPIO_ReadInputDataBit(KEY0_INT_GPIO_PORT,KEY0_INT_GPIO_PIN)==SET)
 		{
 			Loc_Run_Status |=Bit_cc_cv;
 			
@@ -222,43 +241,37 @@ void KEY1_IRQHandler(void)
 	/*复位DAC输出*/
 	DAC_SetDualChannelData(DAC_DATA_ALIGN, 0, 0);
   /*清除中断标志位*/
-	EXTI_ClearITPendingBit(KEY1_INT_EXTI_LINE);     
+	EXTI_ClearITPendingBit(KEY0_INT_EXTI_LINE);     
 	 
 }
 
 
-void KEY2_IRQHandler(void)
+void KEY1_IRQHandler(void)
 {
   //确保是否产生了EXTI Line中断
-	if(EXTI_GetITStatus(KEY2_INT_EXTI_LINE) != RESET) 
+	if(EXTI_GetITStatus(KEY1_INT_EXTI_LINE) != RESET) 
 	{
 		//delay_us(100);
 //	Loc_Run_Status |= (GPIO_ReadInputDataBit(KEY0_INT_GPIO_PORT,KEY0_INT_GPIO_PIN)<<0);
 //	Loc_Run_Status |= (GPIO_ReadInputDataBit(KEY1_INT_GPIO_PORT,KEY1_INT_GPIO_PIN)<<1);
 
-		if(GPIO_ReadInputDataBit(KEY2_INT_GPIO_PORT, KEY2_INT_GPIO_PIN)==SET)
+		if(GPIO_ReadInputDataBit(KEY1_INT_GPIO_PORT, KEY1_INT_GPIO_PIN)==SET)
 			Loc_Remo_Flag |= Bit_Loc_Remo;
 		else
 			Loc_Remo_Flag &= ~Bit_Loc_Remo;
 		
 		DAC_SetDualChannelData(DAC_DATA_ALIGN, 0, 0);
     //清除中断标志位
-		EXTI_ClearITPendingBit(KEY2_INT_EXTI_LINE);     
+		EXTI_ClearITPendingBit(KEY1_INT_EXTI_LINE);     
 	}  
 }
-void USART1_IRQHandler(void)
+
+
+
+
+void KEY2_IRQHandler(void)
 {
-   if(USART_GetITStatus(USART1,USART_IT_RXNE)!=RESET)
-   {
-				prvvUARTRxISR();
-        USART_ClearITPendingBit(USART1,USART_IT_RXNE);			 
-   }
-	 
-	 if(USART_GetITStatus(USART1,USART_IT_TXE) == SET)
-   {
-        prvvUARTTxReadyISR();
-				USART_ClearITPendingBit(USART1, USART_IT_TXE);
-   }
+
 }
 
 
