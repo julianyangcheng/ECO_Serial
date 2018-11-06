@@ -5,9 +5,14 @@
 
 #define  ADC_GPIO_APBxCLOCK_FUN RCC_APB2PeriphClockCmd
 #define ADC_GPIO_CLK RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC
+#define PA7_FOR_SETTING
 /*PC1--->Vdis
   PC2--->Idis
 	PB1--->Given
+*/
+/*Uo    ------>PC1   ADC123_IN11
+  Io    ------>PC2   ADC123_IN12
+	Given ------>PA7   ADC12_IN7
 */
 #define ADC_PORT1 GPIOC
 #define ADC_GPIO_PIN1 GPIO_Pin_1
@@ -17,10 +22,17 @@
 #define ADC_GPIO_PIN2 GPIO_Pin_2
 #define ADCx_Channel2 ADC_Channel_12
 
+#ifdef PA7_FOR_SETTING
+#define ADC_PORT3 GPIOA
+#define ADC_GPIO_PIN3 GPIO_Pin_7
+#define ADCx_Channel3 ADC_Channel_7
+#endif
+
+#ifdef PB1_FOR_SETTING
 #define ADC_PORT3 GPIOB
 #define ADC_GPIO_PIN3 GPIO_Pin_1
 #define ADCx_Channel3 ADC_Channel_9
-
+#endif
 
 #define ADC_APBxCLOCK_FUN RCC_APB2PeriphClockCmd
 #define ADCx_CLK RCC_APB2Periph_ADC1

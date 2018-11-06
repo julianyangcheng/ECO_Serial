@@ -9,7 +9,6 @@ static void ADCx_GPIO_CONFIG(void)
 	ADC_GPIO_APBxCLOCK_FUN (ADC_GPIO_CLK, ENABLE);
 	/*GPIO配置*/
 	GPIO_InitStruct.GPIO_Pin = ADC_GPIO_PIN1;
-	                          
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AIN;            //模拟输入模式      //输入模式下不用配置GPIO速度
 	GPIO_Init(ADC_PORT1, &GPIO_InitStruct); 
 	
