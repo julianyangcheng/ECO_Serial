@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 
 #define  ADC_GPIO_APBxCLOCK_FUN RCC_APB2PeriphClockCmd
-#define ADC_GPIO_CLK RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC
+#define ADC_GPIO_CLK RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC
 #define PA7_FOR_SETTING
 /*PC1--->Vdis
   PC2--->Idis
